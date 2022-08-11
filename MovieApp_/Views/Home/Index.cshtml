@@ -1,0 +1,14 @@
+﻿@model HomeViewModel
+
+
+@section header{
+     @await Html.PartialAsync("_header")
+}
+<h1>Film</h1>
+<div id="movies">
+    @foreach (var movie in Model.AllMovies)
+    {
+        @await Html.PartialAsync("_movie", movie);
+    }
+
+</div>

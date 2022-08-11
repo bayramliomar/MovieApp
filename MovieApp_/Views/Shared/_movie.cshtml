@@ -1,0 +1,18 @@
+﻿@model Movie
+
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-3">
+            <img src="/img/@Model.ImagePath" style="width:100%;" class="img-fluid rounded-start" alt="/img/@Model.Title">
+        </div>
+        <div class="col-md-9">
+            <div class="card-body py-0">
+                <h5 class="card-title">@Model.Title</h5>
+                <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.ID"  class="btn btn-primary">Detail</a>
+                <a asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.ID"  class="btn btn-primary">Edit</a>
+                <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+        </div>
+    </div>
+</div>
