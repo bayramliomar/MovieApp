@@ -82,8 +82,9 @@ namespace MovieApp_.Data
             _movies.Add(model);
         }
 
-        public static void Remove(Movie model)
+        public static void Remove(int id)
         {
+            var model = GetById(id);
             _movies.Remove(model);
         }
 

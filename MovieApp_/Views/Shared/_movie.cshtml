@@ -11,6 +11,10 @@
                 <h5 class="card-title">@Model.Title</h5>
                 <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.ID"  class="btn btn-primary">Detail</a>
                 <a asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.ID"  class="btn btn-primary">Edit</a>
+                <form class="d-inline-block" asp-controller="Movies" asp-action="Delete" method="post">
+                    <input  type="hidden" asp-for="ID"/>
+                    <button class="btn btn-md btn-danger" type="submit">Delete</button>
+                </form>
                 <p class="card-text"><small class="text-muted"></small></p>
             </div>
         </div>

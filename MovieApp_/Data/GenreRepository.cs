@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace MovieApp_.Data
 {
-    public class JenreRepository
+    public class GenreRepository
     {
         private static readonly List<Genre> _genres = null;
 
-        static JenreRepository()
+        static GenreRepository()
         {
             _genres = new List<Genre>()
             {

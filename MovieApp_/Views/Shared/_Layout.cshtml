@@ -8,6 +8,7 @@
     <title>Movie App</title>
 </head>
 <body>
+    @RenderSection("message",false)
     @await Html.PartialAsync("_navbar")
     @RenderSection("header",false)
 

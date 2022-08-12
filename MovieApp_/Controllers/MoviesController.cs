@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieApp_.Data;
 using MovieApp_.Models;
 using System;
@@ -40,27 +41,50 @@ namespace MovieApp_.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Genres = new SelectList(GenreRepository.Genres, "ID", "Name");
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Movie model)
         {
-            MovieRepository.Add(model);
-            return RedirectToAction("List");
+            if (ModelState.IsValid)
+            {
+                MovieRepository.Add(model);
+                TempData["message"] = $"{model.Title} isimli film eklenmiştir";
+                return RedirectToAction("List");
+
+            }
+            ViewBag.Genres = new SelectList(GenreRepository.Genres, "ID", "Name");
+            return View(model);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            ViewBag.Genres = new SelectList(GenreRepository.Genres, "ID", "Name");
             return View(MovieRepository.GetById(id));
         }
 
         [HttpPost]
         public IActionResult Edit(Movie model)
         {
-            MovieRepository.Edit(model);
-            return RedirectToAction("Details", "Movies", new { @id=model.ID});
+            if (ModelState.IsValid)
+            {
+                MovieRepository.Edit(model);
+                TempData["message"] = "Film Güncellenmiştir";
+                return RedirectToAction("Details", "Movies", new { @id = model.ID });
+            }
+            ViewBag.Genres = new SelectList(GenreRepository.Genres, "ID", "Name");
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            MovieRepository.Remove(id);
+            TempData["message"] = "Film Silinmiştir";
+            return RedirectToAction("List");
         }
     }
 }
