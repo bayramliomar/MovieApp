@@ -1,4 +1,4 @@
-﻿namespace MovieApp_.Models
+﻿namespace MovieApp_.Entities
 {
     public class Genre
     {

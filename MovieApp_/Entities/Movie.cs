@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace MovieApp_.Models
+namespace MovieApp_.Entities
 {
     public class Movie
     {
@@ -16,10 +16,7 @@ namespace MovieApp_.Models
         [DisplayName("Açıklama")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Yönetmen alanı boş geçilemez")]
-        [DisplayName("Yönetmen")]
-        public string Director { get; set; }
-        public string[] Players { get; set; }
+       
 
         [Required(ErrorMessage = "Resim alanı boş geçilemez")]
         [DisplayName("Resim")]

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MovieApp_.Entities;
+using System.Collections.Generic;
 
 namespace MovieApp_.Models
 {
