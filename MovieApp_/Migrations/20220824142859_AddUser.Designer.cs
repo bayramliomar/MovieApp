@@ -2,74 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApp_.Data;
 
 namespace MovieApp_.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20220824142859_AddUser")]
+    partial class AddUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("MovieApp_.Entities.Cast", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Character")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Casts");
-                });
-
-            modelBuilder.Entity("MovieApp_.Entities.Crew", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Job")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Crews");
-                });
 
             modelBuilder.Entity("MovieApp_.Entities.Genre", b =>
                 {
@@ -168,44 +117,6 @@ namespace MovieApp_.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MovieApp_.Entities.Cast", b =>
-                {
-                    b.HasOne("MovieApp_.Entities.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieApp_.Entities.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("MovieApp_.Entities.Crew", b =>
-                {
-                    b.HasOne("MovieApp_.Entities.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieApp_.Entities.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("MovieApp_.Entities.Movie", b =>
