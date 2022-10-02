@@ -11,6 +11,11 @@ namespace MovieApp_.Data
     {
         public static void Seed(IApplicationBuilder app)
         {
+            var scope = app.ApplicationServices.CreateScope();
+            var context = scope.ServiceProvider.GetService<MovieContext>();
+
+            context.Database.Migrate();//dotnet ef database update
+
             var genres = new List<Genre>()
                            {
                                 new Genre(){
@@ -53,37 +58,37 @@ namespace MovieApp_.Data
                                     Title="Jiu Jitsu",
                                     Description="Every six years, an ancient order of jiu-jitsu fighters joins forces to battle a vicious race of alien invaders. But when a celebrated war hero goes down in defeat, the fate of the planet and mankind hangs in the balance.",
                                     ImagePath="1.jpg",
-                                    Genre=genres[0]
+                                    Genres=new List<Genre>{genres[0],genres[1]}
                                 },
                                 new Movie {
                                     Title="Fatman",
                                     Description="A rowdy, unorthodox Santa Claus is fighting to save his declining business. Meanwhile, Billy, a neglected and precocious 12 year old, hires a hit m...",
                                     ImagePath="2.jpg",
-                                    Genre=genres[1]
+                                     Genres=new List<Genre>{genres[1],genres[2]}
                                 },
                                 new Movie {
                                     Title="The Dalton Gang",
                                     Description="When their brother Frank is killed by an outlaw, brothers Bob Dalton, Emmett Dalton and Gray Dalton join their local sheriff's department. When the...",
                                     ImagePath="3.jpg",
-                                    Genre=genres[2]
+                                     Genres=new List<Genre>{genres[2],genres[3]}
                                 },
                                 new Movie {
                                     Title="Tenet",
                                     Description="Armed with only one word - Tenet - and fighting for the survival of the entire world, the Protagonist journeys through a twilight world of internat...",
                                     ImagePath="4.jpg",
-                                    Genre=genres[3]
+                                     Genres=new List<Genre>{genres[3],genres[4]}
                                 },
                                 new Movie {
                                     Title="The Craft: Legacy",
                                     Description="An eclectic foursome of aspiring teenage witches get more than they bargained for as they lean into their newfound powers.",
                                     ImagePath="5.jpg",
-                                    Genre=genres[4]
+                                     Genres=new List<Genre>{genres[4],genres[5]}
                                 },
                                 new Movie {
                                     Title="Hard Kill",
                                     Description="The work of billionaire tech CEO Donovan Chalmers is so valuable that he hires mercenaries to protect it, and a terrorist group kidnaps his daughte...",
                                     ImagePath="6.jpg",
-                                    Genre=genres[2]
+                                    Genres=new List<Genre>{genres[1],genres[4]}
                                 }
                             };
             var users = new List<User>()
@@ -91,14 +96,7 @@ namespace MovieApp_.Data
                                 new User {
                                    Username="A1 Developer",
                                    Password="12345",
-                                   ImagePath="1.jpg",
-                                   Person=new Person()
-                                   {
-                                       Name="Amir",
-                                       Surname="Khan",
-                                       Imdb="4.7",
-                                       PlaceOfBirth="İndian"
-                                   }
+                                   ImagePath="1.jpg"
                                 },
                                  new User {
                                    Username="A3 Developer",
@@ -109,6 +107,14 @@ namespace MovieApp_.Data
                             };
             var people = new List<Person>()
             {
+                new Person()
+                {
+                    Name = "Amir",
+                    Surname = "Khan",
+                    Imdb = "4.7",
+                    PlaceOfBirth = "İndian",
+                    User=users[0]
+                },
                 new Person()
                 {
                     Name="Şahan",
@@ -128,13 +134,13 @@ namespace MovieApp_.Data
                new Crew()
                {
                     Movie=movies[0],
-                    Person=people[0],
+                    Person=people[1],
                     Job="Yönetmen"
                },
                 new Crew()
                {
                     Movie=movies[1],
-                    Person=people[0],
+                    Person=people[1],
                     Job="Yönetmen Yardımcısı"
                }
             };
@@ -143,22 +149,18 @@ namespace MovieApp_.Data
                 new Cast()
                 {
                     Movie=movies[0],
-                    Person=users[0].Person,
+                    Person=people[0],
                     RoleName="Recep İvedik",
                     Character="Baş Rol"
                 },
                  new Cast()
                 {
                     Movie=movies[1],
-                    Person=users[0].Person,
+                    Person=people[0],
                     RoleName="Recep İvedik",
                     Character="Baş Rol"
                 }
             };
-            var scope = app.ApplicationServices.CreateScope();
-            var context = scope.ServiceProvider.GetService<MovieContext>();
-
-            context.Database.Migrate();
 
             if (context.Database.GetPendingMigrations().Count() == 0)
             {

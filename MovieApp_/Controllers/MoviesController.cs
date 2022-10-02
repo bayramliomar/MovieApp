@@ -6,6 +6,7 @@ using MovieApp_.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovieApp_.Controllers
 {
@@ -21,6 +22,7 @@ namespace MovieApp_.Controllers
         [HttpGet]
         public IActionResult List(int? id)
         {
+            //string idd = HttpContext.Request.RouteValues["id"].ToString();
             string query = HttpContext.Request.Query["query"];
             //var movie = MovieRepository.Movies;
             var movie = _context.Movies.AsQueryable();
@@ -33,7 +35,7 @@ namespace MovieApp_.Controllers
             if (id != null)
             {
                 //movie = MovieRepository.GetByGenreId((int)id);
-                movie = movie.Where(x => x.GenreID == id);
+                movie = movie.Include(x=>x.Genres).Where(x => x.Genres.Any(x=>x.ID == id));
             }
 
             var model = new MovieViewModel()

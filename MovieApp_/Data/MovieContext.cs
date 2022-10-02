@@ -20,5 +20,19 @@ namespace MovieApp_.Data
         //{
         //    optionsBuilder.UseSqlServer("");
         //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Movie>().Property(x => x.Title).IsRequired();
+            modelBuilder.Entity<Movie>().Property(x => x.Title).HasMaxLength(50);
+            modelBuilder.Entity<Movie>().Property(x => x.Title).HasAnnotation("DisplayName", "Başlık");
+
+            modelBuilder.Entity<Movie>().Property(x => x.Description).IsRequired();
+            modelBuilder.Entity<Movie>().Property(x => x.Description).HasMaxLength(500);
+            modelBuilder.Entity<Movie>().Property(x => x.Description).HasAnnotation("DisplayName", "Açıklama");
+
+            modelBuilder.Entity<Movie>().Property(x => x.ImagePath).IsRequired();
+            modelBuilder.Entity<Movie>().Property(x => x.Title).HasAnnotation("DisplayName", "Resim");
+        }
     }
 }
